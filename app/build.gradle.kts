@@ -47,18 +47,22 @@ android {
 }
 
 dependencies {
-    implementation("androidx.core:core-ktx:1.9.0")
-    implementation("com.google.android.gms:play-services-wearable:18.0.0")
-    implementation("androidx.activity:activity-compose:1.6.1")
+    implementation(libs.androidx.core)
+    implementation(libs.androidx.activity)
 
-    val composeVersion = "1.3.3"
-    implementation("androidx.compose.ui:ui:$composeVersion")
-    implementation("androidx.compose.ui:ui-tooling-preview:$composeVersion")
+    implementation(libs.compose.ui)
+    implementation(libs.compose.ui.tooling.preview)
 
-    val wearComposeVersion = "1.1.2"
-    implementation("androidx.wear.compose:compose-material:$wearComposeVersion")
-    implementation("androidx.wear.compose:compose-foundation:$wearComposeVersion")
+    implementation(libs.androidx.wear.compose.material)
+    implementation(libs.androidx.wear.compose.foundation)
+    implementation(libs.androidx.wear.tiles)
+    implementation(libs.androidx.wear.tiles.material)
 
-    debugImplementation("androidx.compose.ui:ui-tooling:$composeVersion")
-    debugImplementation("androidx.compose.ui:ui-test-manifest:$composeVersion")
+    implementation(libs.horologist.compose.tools)
+    implementation(libs.horologist.tiles)
+
+    implementation(libs.coil)
+    implementation(libs.kotlinx.coroutines.android)
+
+    debugImplementation(libs.compose.ui.tooling)
 }
