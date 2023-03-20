@@ -12,6 +12,7 @@ import io.ktor.serialization.kotlinx.json.*
 import kotlinx.serialization.ExperimentalSerializationApi
 import kotlinx.serialization.json.Json
 import javax.inject.Qualifier
+import javax.inject.Singleton
 
 @Module
 @InstallIn(SingletonComponent::class)
@@ -19,6 +20,7 @@ class NetworkModule {
 
     @OptIn(ExperimentalSerializationApi::class)
     @Provides
+    @Singleton
     fun provideNetworkClient(): HttpClient = HttpClient(OkHttp) {
         install(ContentNegotiation) {
             json(

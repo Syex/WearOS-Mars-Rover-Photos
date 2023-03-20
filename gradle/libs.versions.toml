@@ -13,6 +13,7 @@ coil = "2.2.2"
 ktor = "2.2.4"
 kotlinx-datetime = "0.4.0"
 hilt = "2.44"
+datastore = "1.0.0"
 
 [libraries]
 androidx-core = { module = "androidx.core:core-ktx", version.ref = "androidx-core" }
@@ -41,3 +42,5 @@ ktor-json = { module = "io.ktor:ktor-serialization-kotlinx-json", version.ref = 
 
 hilt-android = { module = "com.google.dagger:hilt-android", version.ref = "hilt" }
 hilt-compiler = { module = "com.google.dagger:hilt-compiler", version.ref = "hilt" }
+
+datastore = { module = "androidx.datastore:datastore-preferences", version.ref = "datastore" }
