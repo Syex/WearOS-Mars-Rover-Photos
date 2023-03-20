@@ -22,4 +22,16 @@ class MarsRoverApi @Inject constructor(
             parameter(FIELD_API_KEY, apiKey)
         }.body()
     }
+
+    suspend fun getOpportunityMissionManifest(): MissionManifestEntity {
+        return client.get("$MANIFEST_URL/opportunity") {
+            parameter(FIELD_API_KEY, apiKey)
+        }.body()
+    }
+
+    suspend fun getSpiritMissionManifest(): MissionManifestEntity {
+        return client.get("$MANIFEST_URL/spirit") {
+            parameter(FIELD_API_KEY, apiKey)
+        }.body()
+    }
 }
