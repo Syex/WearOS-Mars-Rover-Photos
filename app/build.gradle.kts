@@ -4,6 +4,8 @@ plugins {
     id("com.android.application")
     kotlin("android")
     kotlin("plugin.serialization")
+    kotlin("kapt")
+    id("com.google.dagger.hilt.android")
 }
 
 android {
@@ -47,6 +49,10 @@ android {
     }
 }
 
+kapt {
+    correctErrorTypes = true
+}
+
 dependencies {
     implementation(libs.androidx.core)
     implementation(libs.androidx.activity)
@@ -66,8 +72,12 @@ dependencies {
     implementation(libs.kotlinx.coroutines.android)
 
     implementation(libs.ktor.client)
+    implementation(libs.ktor.client.content.negotiation)
     implementation(libs.ktor.json)
     implementation(libs.kotlinx.datetime)
+
+    implementation(libs.hilt.android)
+    kapt(libs.hilt.compiler)
 
     debugImplementation(libs.compose.ui.tooling)
 }
