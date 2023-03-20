@@ -15,6 +15,9 @@ kotlinx-datetime = "0.4.0"
 hilt = "2.44"
 datastore = "1.0.0"
 
+junit5-jupiter = "5.9.2"
+mockk = "1.13.4"
+
 [libraries]
 androidx-core = { module = "androidx.core:core-ktx", version.ref = "androidx-core" }
 androidx-activity = { module = "androidx.activity:activity-compose", version.ref = "androidx-activity" }
@@ -44,3 +47,8 @@ hilt-android = { module = "com.google.dagger:hilt-android", version.ref = "hilt"
 hilt-compiler = { module = "com.google.dagger:hilt-compiler", version.ref = "hilt" }
 
 datastore = { module = "androidx.datastore:datastore-preferences", version.ref = "datastore" }
+
+junit5-jupiter-api = { module = "org.junit.jupiter:junit-jupiter-api", version.ref = "junit5-jupiter" }
+junit5-jupiter-engine = { module = "org.junit.jupiter:junit-jupiter-engine", version.ref = "junit5-jupiter" }
+mockk = { module = "io.mockk:mockk", version.ref = "mockk" }
+kotlinx-coroutines-test = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-test", version.ref = "coroutines" }

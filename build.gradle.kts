@@ -5,3 +5,9 @@ plugins {
     kotlin("kapt") version libs.versions.kotlin.get() apply false
     id("com.google.dagger.hilt.android") version libs.versions.hilt.get() apply false
 }
+
+allprojects {
+    tasks.withType(Test::class) {
+        useJUnitPlatform()
+    }
+}

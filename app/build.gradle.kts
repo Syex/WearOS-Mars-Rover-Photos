@@ -83,3 +83,12 @@ dependencies {
 
     debugImplementation(libs.compose.ui.tooling)
 }
+
+dependencies {
+    testImplementation(libs.junit5.jupiter.api)
+    testRuntimeOnly(libs.junit5.jupiter.engine)
+
+    testImplementation(libs.mockk)
+
+    testImplementation(libs.kotlinx.coroutines.test)
+}
