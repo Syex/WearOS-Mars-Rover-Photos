@@ -3,6 +3,7 @@
 plugins {
     id("com.android.application")
     kotlin("android")
+    kotlin("plugin.serialization")
 }
 
 android {
@@ -63,6 +64,10 @@ dependencies {
 
     implementation(libs.coil)
     implementation(libs.kotlinx.coroutines.android)
+
+    implementation(libs.ktor.client)
+    implementation(libs.ktor.json)
+    implementation(libs.kotlinx.datetime)
 
     debugImplementation(libs.compose.ui.tooling)
 }
