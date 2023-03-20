@@ -5,4 +5,6 @@
     values-round/strings.xml for round devices.
     -->
     <string name="hello_world">From the Square world,\nHello, %1$s!</string>
+    <string name="tile_service_label">MarsRoverDaily</string>
+    <string name="tile_service_description">todo</string>
 </resources>
