@@ -1,9 +1,6 @@
 package de.memorian.wearos.marsrover.data.entity
 
-import de.memorian.wearos.marsrover.domain.model.MarsRoverMissionManifest
-import de.memorian.wearos.marsrover.domain.model.PhotosPerSol
-import de.memorian.wearos.marsrover.domain.model.RoverCamera
-import de.memorian.wearos.marsrover.domain.model.RoverStatus
+import de.memorian.wearos.marsrover.domain.model.*
 import kotlinx.datetime.LocalDate
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
@@ -41,6 +38,7 @@ data class MissionManifestEntity(
 
 fun MissionManifestEntity.toModel() = MarsRoverMissionManifest(
     roverName = photoManifest.name,
+    roverType = RoverType.fromRoverName(photoManifest.name),
     landingDate = photoManifest.landingDate,
     launchDate = photoManifest.launchDate,
     status = RoverStatus.fromJson(photoManifest.status),

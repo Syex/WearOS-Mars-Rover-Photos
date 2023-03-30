@@ -43,13 +43,13 @@ class MarsRoverApi @Inject constructor(
         }.body()
     }
 
-    suspend fun getCuriosityPhotos(sol: Int, camera: String?): List<RoverPhotoEntity> =
+    suspend fun getCuriosityPhotos(sol: Int, camera: String? = null): List<RoverPhotoEntity> =
         getRoverPhotos(PATH_CURIOSITY, sol, camera)
 
-    suspend fun getOpportunityPhotos(sol: Int, camera: String?): List<RoverPhotoEntity> =
+    suspend fun getOpportunityPhotos(sol: Int, camera: String? = null): List<RoverPhotoEntity> =
         getRoverPhotos(PATH_OPPORTUNITY, sol, camera)
 
-    suspend fun getSpiritPhotos(sol: Int, camera: String?): List<RoverPhotoEntity> =
+    suspend fun getSpiritPhotos(sol: Int, camera: String? = null): List<RoverPhotoEntity> =
         getRoverPhotos(PATH_SPIRIT, sol, camera)
 
     private suspend fun getRoverPhotos(

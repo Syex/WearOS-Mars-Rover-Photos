@@ -4,6 +4,7 @@ import kotlinx.datetime.LocalDate
 
 data class MarsRoverMissionManifest(
     val roverName: String,
+    val roverType: RoverType,
     val landingDate: LocalDate,
     val launchDate: LocalDate,
     val status: RoverStatus,
@@ -19,6 +20,24 @@ data class PhotosPerSol(
     val totalPhotos: Int,
     val cameras: List<RoverCamera>,
 )
+
+enum class RoverType {
+
+    Curiosity,
+    Opportunity,
+    Spirit,
+    Unknown;
+
+    companion object {
+
+        fun fromRoverName(name: String): RoverType = when (name) {
+            "Curiosity" -> Curiosity
+            "Opportunity" -> Opportunity
+            "Spirit" -> Spirit
+            else -> Unknown
+        }
+    }
+}
 
 enum class RoverStatus {
 
