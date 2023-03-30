@@ -1,19 +1,19 @@
 package de.memorian.wearos.marsrover.domain.action
 
-import de.memorian.wearos.marsrover.data.MarsRoverRepository
+import de.memorian.wearos.marsrover.data.MissionManifestRepository
 import de.memorian.wearos.marsrover.domain.action.GetRoverManifestsAction.RoverManifests
 import de.memorian.wearos.marsrover.domain.model.MarsRoverMissionManifest
 import javax.inject.Inject
 
 class GetRoverManifestsAction @Inject constructor(
-    private val marsRoverRepository: MarsRoverRepository,
+    private val missionManifestRepository: MissionManifestRepository,
 ) : CoroutineUseCase<Unit, Result<RoverManifests>> {
 
     override suspend fun execute(params: Unit): Result<RoverManifests> {
         return try {
-            val curiosityManifest = marsRoverRepository.getCuriosityManifest()
-            val opportunityManifest = marsRoverRepository.getOpportunityManifest()
-            val spiritManifest = marsRoverRepository.getSpiritManifest()
+            val curiosityManifest = missionManifestRepository.getCuriosityManifest()
+            val opportunityManifest = missionManifestRepository.getOpportunityManifest()
+            val spiritManifest = missionManifestRepository.getSpiritManifest()
 
             Result.success(
                 RoverManifests(curiosityManifest, opportunityManifest, spiritManifest)

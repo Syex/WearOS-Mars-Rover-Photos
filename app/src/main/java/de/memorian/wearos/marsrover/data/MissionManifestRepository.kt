@@ -9,7 +9,7 @@ import kotlinx.serialization.encodeToString
 import kotlinx.serialization.json.Json
 import javax.inject.Inject
 
-class MarsRoverRepository @Inject constructor(
+class MissionManifestRepository @Inject constructor(
     private val marsRoverManifestStore: MarsRoverManifestStore,
     private val marsRoverApi: MarsRoverApi,
     private val json: Json,

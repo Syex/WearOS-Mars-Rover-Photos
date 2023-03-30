@@ -10,7 +10,7 @@ import kotlinx.serialization.json.Json
 import org.junit.jupiter.api.Test
 
 @OptIn(ExperimentalCoroutinesApi::class)
-class MarsRoverRepositoryTest {
+class MissionManifestRepositoryTest {
 
     private val marsRoverManifestStore = mockk<MarsRoverManifestStore>(relaxUnitFun = true)
     private val api = mockk<MarsRoverApi>()
@@ -43,7 +43,7 @@ class MarsRoverRepositoryTest {
         }
     """.trimIndent()
 
-    private val repository = MarsRoverRepository(marsRoverManifestStore, api, json)
+    private val repository = MissionManifestRepository(marsRoverManifestStore, api, json)
 
     @Test
     fun `returns stored curiosity manifest from store`() = runTest {
