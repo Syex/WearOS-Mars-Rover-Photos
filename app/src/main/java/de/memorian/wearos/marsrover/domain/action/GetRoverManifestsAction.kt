@@ -1,8 +1,7 @@
 package de.memorian.wearos.marsrover.domain.action
 
 import de.memorian.wearos.marsrover.data.MissionManifestRepository
-import de.memorian.wearos.marsrover.domain.action.GetRoverManifestsAction.RoverManifests
-import de.memorian.wearos.marsrover.domain.model.MarsRoverMissionManifest
+import de.memorian.wearos.marsrover.domain.model.RoverManifests
 import javax.inject.Inject
 
 class GetRoverManifestsAction @Inject constructor(
@@ -23,9 +22,4 @@ class GetRoverManifestsAction @Inject constructor(
         }
     }
 
-    data class RoverManifests(
-        val curiosityManifest: MarsRoverMissionManifest,
-        val opportunityManifest: MarsRoverMissionManifest,
-        val spiritManifest: MarsRoverMissionManifest,
-    )
 }

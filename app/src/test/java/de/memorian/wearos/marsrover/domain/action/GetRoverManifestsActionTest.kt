@@ -2,6 +2,7 @@ package de.memorian.wearos.marsrover.domain.action
 
 import de.memorian.wearos.marsrover.data.MissionManifestRepository
 import de.memorian.wearos.marsrover.domain.model.MarsRoverMissionManifest
+import de.memorian.wearos.marsrover.domain.model.RoverManifests
 import io.kotest.matchers.result.shouldBeFailure
 import io.kotest.matchers.result.shouldBeSuccess
 import io.kotest.matchers.shouldBe
@@ -30,7 +31,7 @@ class GetRoverManifestsActionTest {
         val result = getRoverManifestsAction.execute(Unit)
 
         result.shouldBeSuccess()
-        result.getOrNull() shouldBe GetRoverManifestsAction.RoverManifests(
+        result.getOrNull() shouldBe RoverManifests(
             curiosityManifest,
             opportunityManifest,
             spiritManifest

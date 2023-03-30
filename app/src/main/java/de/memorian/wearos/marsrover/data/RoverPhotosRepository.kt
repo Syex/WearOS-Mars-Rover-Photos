@@ -1,10 +1,11 @@
 package de.memorian.wearos.marsrover.data
 
 import de.memorian.wearos.marsrover.data.persistence.MarsRoverDailyImageStore
+import de.memorian.wearos.marsrover.domain.model.MarsRoverImageUrl
 import de.memorian.wearos.marsrover.domain.model.RoverType
 import javax.inject.Inject
 
-private const val PHOTOS_PER_PAGE = 25
+const val PHOTOS_PER_PAGE = 25
 
 class RoverPhotosRepository @Inject constructor(
     private val marsRoverDailyImageStore: MarsRoverDailyImageStore,
@@ -17,7 +18,7 @@ class RoverPhotosRepository @Inject constructor(
         roverType: RoverType,
         sol: Int,
         index: Int,
-    ): Result<String> {
+    ): Result<MarsRoverImageUrl> {
         if (index > PHOTOS_PER_PAGE - 1) return Result.failure(InvalidIndexException())
 
         val roverPhotos = when (roverType) {
