@@ -1,5 +1,9 @@
 package de.memorian.wearos.marsrover.data.entity
 
+import de.memorian.wearos.marsrover.domain.model.MarsRoverMissionManifest
+import de.memorian.wearos.marsrover.domain.model.PhotosPerSol
+import de.memorian.wearos.marsrover.domain.model.RoverCamera
+import de.memorian.wearos.marsrover.domain.model.RoverStatus
 import kotlinx.datetime.LocalDate
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
@@ -22,11 +26,11 @@ data class MissionManifestEntity(
         @SerialName("max_sol") val maxSol: Int,
         @SerialName("max_date") val maxEarthDate: LocalDate,
         @SerialName("total_photos") val totalPhotos: Int,
-        val photos: List<PhotosPerSol>,
+        val photos: List<PhotosPerSolEntity>,
     ) {
 
         @Serializable
-        data class PhotosPerSol(
+        data class PhotosPerSolEntity(
             val sol: Int,
             @SerialName("earth_date") val earthDate: LocalDate,
             @SerialName("total_photos") val totalPhotos: Int,
@@ -35,3 +39,20 @@ data class MissionManifestEntity(
     }
 }
 
+fun MissionManifestEntity.toModel() = MarsRoverMissionManifest(
+    roverName = photoManifest.name,
+    landingDate = photoManifest.landingDate,
+    launchDate = photoManifest.launchDate,
+    status = RoverStatus.fromJson(photoManifest.status),
+    maxSol = photoManifest.maxSol,
+    maxEarthDate = photoManifest.maxEarthDate,
+    totalPhotos = photoManifest.totalPhotos,
+    photos = photoManifest.photos.map { photosPerSolEntity ->
+        PhotosPerSol(
+            sol = photosPerSolEntity.sol,
+            earthDate = photosPerSolEntity.earthDate,
+            totalPhotos = photosPerSolEntity.totalPhotos,
+            cameras = photosPerSolEntity.cameras.mapNotNull { RoverCamera.fromJson(it) }
+        )
+    }
+)

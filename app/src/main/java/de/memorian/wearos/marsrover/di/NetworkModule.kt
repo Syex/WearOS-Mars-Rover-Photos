@@ -19,18 +19,21 @@ import javax.inject.Singleton
 class NetworkModule {
 
     @OptIn(ExperimentalSerializationApi::class)
+
     @Provides
     @Singleton
-    fun provideNetworkClient(): HttpClient = HttpClient(OkHttp) {
+    fun provideJsonClient(): Json = Json {
+        prettyPrint = true
+        isLenient = true
+        ignoreUnknownKeys = true
+        explicitNulls = false
+    }
+
+    @Provides
+    @Singleton
+    fun provideNetworkClient(json: Json): HttpClient = HttpClient(OkHttp) {
         install(ContentNegotiation) {
-            json(
-                Json {
-                    prettyPrint = true
-                    isLenient = true
-                    ignoreUnknownKeys = true
-                    explicitNulls = false
-                }
-            )
+            json(json)
         }
     }
 
