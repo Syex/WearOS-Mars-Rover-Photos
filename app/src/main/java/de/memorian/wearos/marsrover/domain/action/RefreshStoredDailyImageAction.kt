@@ -1,6 +1,7 @@
 package de.memorian.wearos.marsrover.domain.action
 
 import de.memorian.wearos.marsrover.data.PHOTOS_PER_PAGE
+import de.memorian.wearos.marsrover.data.RoverPhotosAreEmptyException
 import de.memorian.wearos.marsrover.data.RoverPhotosRepository
 import de.memorian.wearos.marsrover.domain.model.MarsRoverImageUrl
 import de.memorian.wearos.marsrover.domain.model.RoverManifests
@@ -63,6 +64,17 @@ class RefreshStoredDailyImageAction @Inject constructor(
             } else {
                 return@mapCatching it
             }
-        }
+        }.fold(
+            onSuccess = {
+                return@fold Result.success(it)
+            },
+            onFailure = {
+                return@fold if (it is RoverPhotosAreEmptyException) {
+                    refreshImage(roverManifests)
+                } else {
+                    Result.failure(it)
+                }
+            }
+        )
     }
 }

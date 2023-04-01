@@ -1,5 +1,6 @@
 package de.memorian.wearos.marsrover.domain.action
 
+import de.memorian.wearos.marsrover.data.RoverPhotosAreEmptyException
 import de.memorian.wearos.marsrover.data.RoverPhotosRepository
 import de.memorian.wearos.marsrover.domain.model.MarsRoverMissionManifest
 import de.memorian.wearos.marsrover.domain.model.RoverManifests
@@ -65,6 +66,24 @@ class RefreshStoredDailyImageActionTest {
             coEvery {
                 roverPhotosRepository.fetchAndPersistNewDailyImage(any(), any(), any())
             } returns Result.success(notAllowedUrl) andThen Result.success(expectedUrl)
+
+            val result = refreshStoredDailyImageAction.execute(Unit)
+
+            result.shouldBeSuccess()
+            result.getOrThrow() shouldBe expectedUrl
+        }
+
+    @Test
+    fun `execute should retry if repository call fails with RoverPhotosAreEmptyException`() =
+        runTest {
+            prepareSuccessfulRepositoryResponse()
+
+            val expectedUrl = "https://marsrover.nasa.gov/image.jpg"
+            coEvery {
+                roverPhotosRepository.fetchAndPersistNewDailyImage(any(), any(), any())
+            } returns Result.failure(RoverPhotosAreEmptyException()) andThen Result.success(
+                expectedUrl
+            )
 
             val result = refreshStoredDailyImageAction.execute(Unit)
 
