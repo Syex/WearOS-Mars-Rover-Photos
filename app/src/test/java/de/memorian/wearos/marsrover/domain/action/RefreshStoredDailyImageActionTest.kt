@@ -1,9 +1,11 @@
 package de.memorian.wearos.marsrover.domain.action
 
 import de.memorian.wearos.marsrover.data.RoverPhotosRepository
+import de.memorian.wearos.marsrover.domain.model.MarsRoverMissionManifest
 import de.memorian.wearos.marsrover.domain.model.RoverManifests
 import de.memorian.wearos.marsrover.domain.model.RoverType
 import de.memorian.wearos.marsrover.domain.util.RandomNumberGenerator
+import io.kotest.matchers.result.shouldBeFailure
 import io.kotest.matchers.result.shouldBeSuccess
 import io.kotest.matchers.shouldBe
 import io.mockk.coEvery
@@ -19,41 +21,74 @@ class RefreshStoredDailyImageActionTest {
 
     private val roverPhotosRepository = mockk<RoverPhotosRepository>()
     private val randomNumberGenerator = mockk<RandomNumberGenerator>()
+    private val getRoverManifestsAction = mockk<GetRoverManifestsAction>()
     private val refreshStoredDailyImageAction =
-        RefreshStoredDailyImageAction(roverPhotosRepository, randomNumberGenerator)
+        RefreshStoredDailyImageAction(
+            roverPhotosRepository,
+            getRoverManifestsAction,
+            randomNumberGenerator
+        )
 
     @Test
     fun `execute with valid input should return a success result`() = runTest {
-        val sol = 1000
-
-        val roverManifests = RoverManifests(
-            curiosityManifest = mockk {
-                every { roverType } returns RoverType.Curiosity
-                every { maxSol } returns sol
-                every { photos[sol] } returns mockk {
-                    every { totalPhotos } returns 1500
-                }
-            },
-            opportunityManifest = mockk(),
-            spiritManifest = mockk(),
-        )
+        prepareSuccessfulRepositoryResponse()
         val expectedUrl = "https://marsrover.nasa.gov/image.jpg"
-        val index = 5
-        val roverType = RoverType.Curiosity
-        coEvery {
-            roverPhotosRepository.fetchAndPersistNewDailyImage(
-                roverType,
-                sol,
-                index
-            )
-        } returns Result.success(expectedUrl)
-        every { randomNumberGenerator.generate(any()) } returns 0 andThen sol andThen index
 
-        val result = refreshStoredDailyImageAction.execute(
-            RefreshStoredDailyImageAction.Params(roverManifests)
-        )
+        coEvery {
+            roverPhotosRepository.fetchAndPersistNewDailyImage(any(), any(), any())
+        } returns Result.success(expectedUrl)
+
+        val result = refreshStoredDailyImageAction.execute(Unit)
 
         result.shouldBeSuccess()
         result.getOrThrow() shouldBe expectedUrl
+    }
+
+    @Test
+    fun `execute should forward failure from getRoverManifestsAction`() = runTest {
+        val exception = Exception()
+        coEvery { getRoverManifestsAction.execute(Unit) } returns Result.failure(exception)
+
+        val result = refreshStoredDailyImageAction.execute(Unit)
+
+        result.shouldBeFailure()
+        result.exceptionOrNull() shouldBe exception
+    }
+
+    @Test
+    fun `execute should refresh image again if repository returns an image URL starting with http`() =
+        runTest {
+            prepareSuccessfulRepositoryResponse()
+
+            val notAllowedUrl = "http://marsrover.nasa.gov/image.jpg"
+            val expectedUrl = "https://marsrover.nasa.gov/image.jpg"
+            coEvery {
+                roverPhotosRepository.fetchAndPersistNewDailyImage(any(), any(), any())
+            } returns Result.success(notAllowedUrl) andThen Result.success(expectedUrl)
+
+            val result = refreshStoredDailyImageAction.execute(Unit)
+
+            result.shouldBeSuccess()
+            result.getOrThrow() shouldBe expectedUrl
+        }
+
+    private fun prepareSuccessfulRepositoryResponse() {
+        val randomNumber = 1
+
+        val manifest = mockk<MarsRoverMissionManifest> {
+            every { roverType } returns RoverType.Curiosity
+            every { maxSol } returns randomNumber
+            every { photos[randomNumber] } returns mockk {
+                every { totalPhotos } returns 1500
+            }
+        }
+
+        val roverManifests = RoverManifests(
+            curiosityManifest = manifest,
+            opportunityManifest = manifest,
+            spiritManifest = manifest,
+        )
+        coEvery { getRoverManifestsAction.execute(Unit) } returns Result.success(roverManifests)
+        every { randomNumberGenerator.generate(any()) } returns randomNumber
     }
 }

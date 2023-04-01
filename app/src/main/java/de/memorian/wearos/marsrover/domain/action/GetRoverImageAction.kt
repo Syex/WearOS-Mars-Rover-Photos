@@ -6,7 +6,6 @@ import javax.inject.Inject
 
 class GetRoverImageAction @Inject constructor(
     private val roverPhotosRepository: RoverPhotosRepository,
-    private val getRoverManifestsAction: GetRoverManifestsAction,
     private val refreshStoredDailyImageAction: RefreshStoredDailyImageAction,
 ) : CoroutineUseCase<Unit, MarsRoverImageUrl> {
 
@@ -15,16 +14,6 @@ class GetRoverImageAction @Inject constructor(
             return Result.success(storedImageUrl)
         }
 
-        getRoverManifestsAction.execute(Unit)
-            .fold(
-                onFailure = {
-                    return Result.failure(it)
-                },
-                onSuccess = { roverManifests ->
-                    return refreshStoredDailyImageAction.execute(
-                        RefreshStoredDailyImageAction.Params(roverManifests)
-                    )
-                }
-            )
+        return refreshStoredDailyImageAction.execute(Unit)
     }
 }

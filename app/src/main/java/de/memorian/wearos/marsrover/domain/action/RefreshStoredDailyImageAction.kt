@@ -19,15 +19,34 @@ private const val SIZE_ROVER_MANIFESTS = 3
  */
 class RefreshStoredDailyImageAction @Inject constructor(
     private val roverPhotosRepository: RoverPhotosRepository,
+    private val getRoverManifestsAction: GetRoverManifestsAction,
     private val randomNumberGenerator: RandomNumberGenerator,
-) : CoroutineUseCase<RefreshStoredDailyImageAction.Params, MarsRoverImageUrl> {
+) : CoroutineUseCase<Unit, MarsRoverImageUrl> {
 
-    override suspend fun execute(params: Params): Result<MarsRoverImageUrl> {
-        val roverManifest = when (randomNumberGenerator.generate(SIZE_ROVER_MANIFESTS - 1)) {
-            0 -> params.roverManifests.curiosityManifest
-            1 -> params.roverManifests.opportunityManifest
-            else -> params.roverManifests.spiritManifest
-        }
+    override suspend fun execute(params: Unit): Result<MarsRoverImageUrl> {
+        getRoverManifestsAction.execute(Unit)
+            .fold(
+                onFailure = {
+                    return Result.failure(it)
+                },
+                onSuccess = { roverManifests ->
+                    return refreshImage(roverManifests)
+                }
+            )
+    }
+
+    /**
+     * Refreshes the daily image. Sometimes the NASA API returns an image with a
+     * "http://" URL, which is blocked by Android network unless we allow cleartext
+     * traffic. To circumvent this, we refresh the image again in such a case.
+     */
+    private suspend fun refreshImage(roverManifests: RoverManifests): Result<MarsRoverImageUrl> {
+        val roverManifest =
+            when (randomNumberGenerator.generate(SIZE_ROVER_MANIFESTS - 1)) {
+                0 -> roverManifests.curiosityManifest
+                1 -> roverManifests.opportunityManifest
+                else -> roverManifests.spiritManifest
+            }
 
         val sol = randomNumberGenerator.generate(roverManifest.maxSol)
         val photosFromSol = roverManifest.photos[sol]
@@ -38,8 +57,12 @@ class RefreshStoredDailyImageAction @Inject constructor(
             roverType = roverManifest.roverType,
             sol = sol,
             index = index,
-        )
+        ).mapCatching {
+            if (it.startsWith("http://")) {
+                return@mapCatching refreshImage(roverManifests).getOrThrow()
+            } else {
+                return@mapCatching it
+            }
+        }
     }
-
-    data class Params(val roverManifests: RoverManifests)
 }
