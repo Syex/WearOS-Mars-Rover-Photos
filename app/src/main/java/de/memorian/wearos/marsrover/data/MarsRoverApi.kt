@@ -2,6 +2,7 @@ package de.memorian.wearos.marsrover.data
 
 import de.memorian.wearos.marsrover.data.entity.MissionManifestEntity
 import de.memorian.wearos.marsrover.data.entity.RoverPhotoEntity
+import de.memorian.wearos.marsrover.data.entity.RoverPhotosEntity
 import de.memorian.wearos.marsrover.di.ApiKey
 import io.ktor.client.*
 import io.ktor.client.call.*
@@ -44,20 +45,20 @@ class MarsRoverApi @Inject constructor(
     }
 
     suspend fun getCuriosityPhotos(sol: Int, camera: String? = null): List<RoverPhotoEntity> =
-        getRoverPhotos(PATH_CURIOSITY, sol, camera)
+        getRoverPhotos(PATH_CURIOSITY, sol, camera).photos
 
     suspend fun getOpportunityPhotos(sol: Int, camera: String? = null): List<RoverPhotoEntity> =
-        getRoverPhotos(PATH_OPPORTUNITY, sol, camera)
+        getRoverPhotos(PATH_OPPORTUNITY, sol, camera).photos
 
     suspend fun getSpiritPhotos(sol: Int, camera: String? = null): List<RoverPhotoEntity> =
-        getRoverPhotos(PATH_SPIRIT, sol, camera)
+        getRoverPhotos(PATH_SPIRIT, sol, camera).photos
 
     private suspend fun getRoverPhotos(
         path: String,
         sol: Int,
         camera: String?,
-    ): List<RoverPhotoEntity> {
-        return client.get("$ROVERS_URL/$path") {
+    ): RoverPhotosEntity {
+        return client.get("$ROVERS_URL/$path/photos") {
             parameter(FIELD_API_KEY, apiKey)
             parameter(FIELD_SOL, sol)
             camera?.let { parameter(FIELD_CAMERA, it) }

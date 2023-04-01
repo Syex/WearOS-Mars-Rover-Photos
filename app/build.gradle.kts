@@ -69,9 +69,12 @@ dependencies {
     implementation(libs.horologist.tiles)
 
     implementation(libs.coil)
+    implementation(libs.timber)
+
     implementation(libs.kotlinx.coroutines.android)
 
     implementation(libs.ktor.client)
+    implementation(libs.ktor.client.logging)
     implementation(libs.ktor.client.content.negotiation)
     implementation(libs.ktor.json)
     implementation(libs.kotlinx.datetime)

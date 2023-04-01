@@ -5,6 +5,11 @@ import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
 @Serializable
+data class RoverPhotosEntity(
+    val photos: List<RoverPhotoEntity>,
+)
+
+@Serializable
 data class RoverPhotoEntity(
     val id: Int,
     val sol: Int,

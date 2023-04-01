@@ -8,9 +8,11 @@ import de.memorian.wearos.marsrover.BuildConfig
 import io.ktor.client.*
 import io.ktor.client.engine.okhttp.*
 import io.ktor.client.plugins.contentnegotiation.*
+import io.ktor.client.plugins.logging.*
 import io.ktor.serialization.kotlinx.json.*
 import kotlinx.serialization.ExperimentalSerializationApi
 import kotlinx.serialization.json.Json
+import timber.log.Timber
 import javax.inject.Qualifier
 import javax.inject.Singleton
 
@@ -34,6 +36,16 @@ class NetworkModule {
     fun provideNetworkClient(json: Json): HttpClient = HttpClient(OkHttp) {
         install(ContentNegotiation) {
             json(json)
+        }
+        if (BuildConfig.DEBUG) {
+            install(Logging) {
+                logger = object : Logger {
+                    override fun log(message: String) {
+                        Timber.tag("Ktor").d(message)
+                    }
+                }
+                level = LogLevel.ALL
+            }
         }
     }
 
