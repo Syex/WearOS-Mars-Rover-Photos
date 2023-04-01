@@ -20,7 +20,7 @@ private const val SIZE_ROVER_MANIFESTS = 3
 class RefreshStoredDailyImageAction @Inject constructor(
     private val roverPhotosRepository: RoverPhotosRepository,
     private val randomNumberGenerator: RandomNumberGenerator,
-) : CoroutineUseCase<RefreshStoredDailyImageAction.Params, Result<MarsRoverImageUrl>> {
+) : CoroutineUseCase<RefreshStoredDailyImageAction.Params, MarsRoverImageUrl> {
 
     override suspend fun execute(params: Params): Result<MarsRoverImageUrl> {
         val roverManifest = when (randomNumberGenerator.generate(SIZE_ROVER_MANIFESTS - 1)) {

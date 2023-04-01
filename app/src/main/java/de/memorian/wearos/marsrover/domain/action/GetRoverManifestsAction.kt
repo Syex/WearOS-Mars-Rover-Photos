@@ -6,7 +6,7 @@ import javax.inject.Inject
 
 class GetRoverManifestsAction @Inject constructor(
     private val missionManifestRepository: MissionManifestRepository,
-) : CoroutineUseCase<Unit, Result<RoverManifests>> {
+) : CoroutineUseCase<Unit, RoverManifests> {
 
     override suspend fun execute(params: Unit): Result<RoverManifests> {
         return try {
