@@ -6,6 +6,7 @@ import de.memorian.wearos.marsrover.data.RoverPhotosRepository
 import de.memorian.wearos.marsrover.domain.model.MarsRoverImageUrl
 import de.memorian.wearos.marsrover.domain.model.RoverManifests
 import de.memorian.wearos.marsrover.domain.util.RandomNumberGenerator
+import timber.log.Timber
 import javax.inject.Inject
 
 private const val SIZE_ROVER_MANIFESTS = 3
@@ -49,17 +50,18 @@ class RefreshStoredDailyImageAction @Inject constructor(
                 else -> roverManifests.spiritManifest
             }
 
-        val sol = randomNumberGenerator.generate(roverManifest.maxSol)
-        val photosFromSol = roverManifest.photos[sol]
+        val solIndex = randomNumberGenerator.generate(roverManifest.photos.size)
+        val photosFromSol = roverManifest.photos[solIndex]
         val lastAvailableIndex = minOf(photosFromSol.totalPhotos, PHOTOS_PER_PAGE)
         val index = randomNumberGenerator.generate(lastAvailableIndex)
 
         return roverPhotosRepository.fetchAndPersistNewDailyImage(
             roverType = roverManifest.roverType,
-            sol = sol,
+            sol = solIndex,
             index = index,
         ).mapCatching {
             if (it.startsWith("http://")) {
+                Timber.d("Got an HTTP url, refreshing again")
                 return@mapCatching refreshImage(roverManifests).getOrThrow()
             } else {
                 return@mapCatching it
@@ -70,6 +72,7 @@ class RefreshStoredDailyImageAction @Inject constructor(
             },
             onFailure = {
                 return@fold if (it is RoverPhotosAreEmptyException) {
+                    Timber.v("Rover photos were empty, refreshing again")
                     refreshImage(roverManifests)
                 } else {
                     Result.failure(it)

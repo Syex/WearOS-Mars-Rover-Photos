@@ -2,11 +2,13 @@ package de.memorian.wearos.marsrover.data.worker
 
 import android.content.Context
 import androidx.hilt.work.HiltWorker
+import androidx.wear.tiles.TileService
 import androidx.work.CoroutineWorker
 import androidx.work.WorkerParameters
 import dagger.assisted.Assisted
 import dagger.assisted.AssistedInject
 import de.memorian.wearos.marsrover.domain.action.RefreshStoredDailyImageAction
+import de.memorian.wearos.marsrover.tile.MarsRoverTileService
 import timber.log.Timber
 
 @HiltWorker
@@ -21,6 +23,8 @@ class RefreshImageWorker @AssistedInject constructor(
         return refreshStoredDailyImageAction.execute(Unit)
             .fold(
                 onSuccess = {
+                    TileService.getUpdater(applicationContext)
+                        .requestUpdate(MarsRoverTileService::class.java)
                     Result.success()
                 },
                 onFailure = {

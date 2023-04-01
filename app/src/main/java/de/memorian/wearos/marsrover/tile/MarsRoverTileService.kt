@@ -24,6 +24,7 @@ class MarsRoverTileService : SuspendingTileService() {
 
     @Inject
     lateinit var getRoverImageAction: GetRoverImageAction
+
     private lateinit var renderer: MarsRoverTileRenderer
     private lateinit var imageLoader: ImageLoader
 
@@ -32,7 +33,7 @@ class MarsRoverTileService : SuspendingTileService() {
     override fun onCreate() {
         super.onCreate()
 
-        renderer = MarsRoverTileRenderer(this)
+        renderer = MarsRoverTileRenderer()
         imageLoader = Coil.imageLoader(this)
     }
 
