@@ -3,7 +3,7 @@ plugins {
     kotlin("android") version libs.versions.kotlin.get() apply false
     kotlin("plugin.serialization") version libs.versions.kotlin.get() apply false
     kotlin("kapt") version libs.versions.kotlin.get() apply false
-    id("com.google.dagger.hilt.android") version libs.versions.hilt.get() apply false
+    id("com.google.dagger.hilt.android") version libs.versions.dagger.get() apply false
 }
 
 allprojects {

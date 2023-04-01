@@ -56,6 +56,7 @@ kapt {
 dependencies {
     implementation(libs.androidx.core)
     implementation(libs.androidx.activity)
+    implementation(libs.androidx.workmanager)
 
     implementation(libs.compose.ui)
     implementation(libs.compose.ui.tooling.preview)
@@ -79,8 +80,10 @@ dependencies {
     implementation(libs.ktor.json)
     implementation(libs.kotlinx.datetime)
 
-    implementation(libs.hilt.android)
-    kapt(libs.hilt.compiler)
+    implementation(libs.androidx.hilt.work)
+    implementation(libs.dagger.hilt.android)
+    kapt(libs.androidx.hilt.compiler)
+    kapt(libs.dagger.hilt.compiler)
 
     implementation(libs.datastore)
 
