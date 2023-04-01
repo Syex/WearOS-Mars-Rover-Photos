@@ -12,7 +12,7 @@ import coil.transform.CircleCropTransformation
 import com.google.android.horologist.tiles.ExperimentalHorologistTilesApi
 import com.google.android.horologist.tiles.SuspendingTileService
 import dagger.hilt.android.AndroidEntryPoint
-import de.memorian.wearos.marsrover.domain.action.GetRoverImageAction
+import de.memorian.wearos.marsrover.app.domain.action.GetRoverImageAction
 import de.memorian.wearos.marsrover.tile.ui.MarsRoverTileRenderer
 import de.memorian.wearos.marsrover.tile.ui.MarsRoverTileState
 import timber.log.Timber

@@ -4,7 +4,7 @@ import android.app.Application
 import androidx.hilt.work.HiltWorkerFactory
 import androidx.work.*
 import dagger.hilt.android.HiltAndroidApp
-import de.memorian.wearos.marsrover.data.worker.RefreshImageWorker
+import de.memorian.wearos.marsrover.app.data.worker.RefreshImageWorker
 import timber.log.Timber
 import java.util.concurrent.TimeUnit
 import javax.inject.Inject
