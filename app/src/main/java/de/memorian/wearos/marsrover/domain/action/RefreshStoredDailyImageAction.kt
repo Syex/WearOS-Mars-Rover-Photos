@@ -37,11 +37,6 @@ class RefreshStoredDailyImageAction @Inject constructor(
             )
     }
 
-    /**
-     * Refreshes the daily image. Sometimes the NASA API returns an image with a
-     * "http://" URL, which is blocked by Android network unless we allow cleartext
-     * traffic. To circumvent this, we refresh the image again in such a case.
-     */
     private suspend fun refreshImage(roverManifests: RoverManifests): Result<MarsRoverImageUrl> {
         val roverManifest =
             when (randomNumberGenerator.generate(SIZE_ROVER_MANIFESTS - 1)) {
@@ -59,14 +54,7 @@ class RefreshStoredDailyImageAction @Inject constructor(
             roverType = roverManifest.roverType,
             sol = solIndex,
             index = index,
-        ).mapCatching {
-            if (it.startsWith("http://")) {
-                Timber.d("Got an HTTP url, refreshing again")
-                return@mapCatching refreshImage(roverManifests).getOrThrow()
-            } else {
-                return@mapCatching it
-            }
-        }.fold(
+        ).fold(
             onSuccess = {
                 return@fold Result.success(it)
             },

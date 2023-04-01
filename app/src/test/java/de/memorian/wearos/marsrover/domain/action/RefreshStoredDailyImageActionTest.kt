@@ -57,23 +57,6 @@ class RefreshStoredDailyImageActionTest {
     }
 
     @Test
-    fun `execute should refresh image again if repository returns an image URL starting with http`() =
-        runTest {
-            prepareSuccessfulRepositoryResponse()
-
-            val notAllowedUrl = "http://marsrover.nasa.gov/image.jpg"
-            val expectedUrl = "https://marsrover.nasa.gov/image.jpg"
-            coEvery {
-                roverPhotosRepository.fetchAndPersistNewDailyImage(any(), any(), any())
-            } returns Result.success(notAllowedUrl) andThen Result.success(expectedUrl)
-
-            val result = refreshStoredDailyImageAction.execute(Unit)
-
-            result.shouldBeSuccess()
-            result.getOrThrow() shouldBe expectedUrl
-        }
-
-    @Test
     fun `execute should retry if repository call fails with RoverPhotosAreEmptyException`() =
         runTest {
             prepareSuccessfulRepositoryResponse()
@@ -100,6 +83,7 @@ class RefreshStoredDailyImageActionTest {
             every { photos[randomNumber] } returns mockk {
                 every { totalPhotos } returns 1500
             }
+            every { photos.size } returns 20
         }
 
         val roverManifests = RoverManifests(
