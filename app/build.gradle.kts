@@ -18,7 +18,6 @@ android {
         targetSdk = 33
         versionCode = 1
         versionName = "1.0"
-
     }
 
     buildTypes {
@@ -40,7 +39,7 @@ android {
         compose = true
     }
     composeOptions {
-        kotlinCompilerExtensionVersion = "1.4.3"
+        kotlinCompilerExtensionVersion = "1.4.4"
     }
     packagingOptions {
         resources {

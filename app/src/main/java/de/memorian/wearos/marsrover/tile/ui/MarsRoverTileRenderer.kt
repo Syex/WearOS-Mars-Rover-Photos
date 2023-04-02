@@ -3,12 +3,12 @@ package de.memorian.wearos.marsrover.tile.ui
 import android.graphics.Bitmap
 import androidx.wear.tiles.*
 import androidx.wear.tiles.TimelineBuilders.*
-import com.google.android.horologist.tiles.ExperimentalHorologistTilesApi
+import com.google.android.horologist.annotations.ExperimentalHorologistApi
 import com.google.android.horologist.tiles.images.toImageResource
 import com.google.android.horologist.tiles.render.TileLayoutRenderer
 import java.util.*
 
-@OptIn(ExperimentalHorologistTilesApi::class)
+@OptIn(ExperimentalHorologistApi::class)
 class MarsRoverTileRenderer : TileLayoutRenderer<MarsRoverTileState, Bitmap> {
 
     override fun renderTimeline(

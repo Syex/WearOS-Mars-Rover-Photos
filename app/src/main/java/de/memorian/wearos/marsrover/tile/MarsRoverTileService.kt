@@ -11,7 +11,7 @@ import coil.Coil
 import coil.ImageLoader
 import coil.request.ImageRequest
 import coil.transform.CircleCropTransformation
-import com.google.android.horologist.tiles.ExperimentalHorologistTilesApi
+import com.google.android.horologist.annotations.ExperimentalHorologistApi
 import com.google.android.horologist.tiles.SuspendingTileService
 import dagger.hilt.android.AndroidEntryPoint
 import de.memorian.wearos.marsrover.app.data.worker.RefreshImageWorker
@@ -22,7 +22,7 @@ import timber.log.Timber
 import java.util.concurrent.TimeUnit
 import javax.inject.Inject
 
-@OptIn(ExperimentalHorologistTilesApi::class)
+@OptIn(ExperimentalHorologistApi::class)
 @AndroidEntryPoint
 class MarsRoverTileService : SuspendingTileService() {
 
