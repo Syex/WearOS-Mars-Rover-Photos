@@ -15,7 +15,7 @@ val md_theme_background = Color(0xFF451804)
 val md_theme_onBackground = Color(0xFF201A17)
 val md_theme_surface = Color(0xFF451804)
 val md_theme_onSurface = Color(0xFF201A17)
-val md_theme_onSurfaceVariant = Color(0xFF52443B)
+val md_theme_onSurfaceVariant = Color(0xFFf0e7e7)
 
 private val wearColorPalette = Colors(
     primary = md_theme_primary,
