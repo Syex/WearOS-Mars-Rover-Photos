@@ -1,7 +1,6 @@
 [versions]
 android-gradle-plugin = "7.4.2"
 kotlin = "1.8.10"
-androidx-test = "1.4.0"
 androidx-wear-compose = "1.1.2"
 androidx-compose-material = "1.4.0"
 androidx-wear-tiles = "1.1.0"
