@@ -7,4 +7,6 @@
     <string name="hello_world">From the Square world,\nHello, %1$s!</string>
     <string name="tile_service_label">MarsRoverDaily</string>
     <string name="tile_service_description">todo</string>
+    <string name="title_refresh_interval">Refresh interval</string>
+    <string name="refresh_interval_label">Hours</string>
 </resources>

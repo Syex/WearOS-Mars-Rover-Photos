@@ -63,8 +63,10 @@ dependencies {
 
     implementation(libs.androidx.wear.compose.material)
     implementation(libs.androidx.wear.compose.foundation)
+    implementation(libs.androidx.wear.compose.navigation)
     implementation(libs.androidx.wear.tiles)
     implementation(libs.androidx.wear.tiles.material)
+    implementation(libs.androidx.compose.material.icons)
 
     implementation(libs.horologist.compose.tools)
     implementation(libs.horologist.tiles)
@@ -81,6 +83,7 @@ dependencies {
     implementation(libs.kotlinx.datetime)
 
     implementation(libs.androidx.hilt.work)
+    implementation(libs.androidx.hilt.navigation)
     implementation(libs.dagger.hilt.android)
     kapt(libs.androidx.hilt.compiler)
     kapt(libs.dagger.hilt.compiler)

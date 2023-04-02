@@ -3,6 +3,7 @@ android-gradle-plugin = "7.4.2"
 kotlin = "1.8.10"
 androidx-test = "1.4.0"
 androidx-wear-compose = "1.1.2"
+androidx-compose-material = "1.4.0"
 androidx-wear-tiles = "1.1.0"
 androidx-core = "1.9.0"
 androidx-activity = "1.6.1"
@@ -29,6 +30,8 @@ androidx-workmanager = { module = "androidx.work:work-runtime-ktx", version.ref 
 
 androidx-wear-compose-material = { module = "androidx.wear.compose:compose-material", version.ref = "androidx-wear-compose" }
 androidx-wear-compose-foundation = { module = "androidx.wear.compose:compose-foundation", version.ref = "androidx-wear-compose" }
+androidx-wear-compose-navigation = { module = "androidx.wear.compose:compose-navigation", version.ref = "androidx-wear-compose" }
+androidx-compose-material-icons = { module = "androidx.compose.material:material-icons-core", version.ref = "androidx-compose-material" }
 androidx-wear-tiles = { module = "androidx.wear.tiles:tiles", version.ref = "androidx-wear-tiles" }
 androidx-wear-tiles-material = { module = "androidx.wear.tiles:tiles-material", version.ref = "androidx-wear-tiles" }
 
@@ -52,6 +55,7 @@ ktor-json = { module = "io.ktor:ktor-serialization-kotlinx-json", version.ref = 
 
 androidx-hilt-work = { module = "androidx.hilt:hilt-work", version.ref = "hilt" }
 androidx-hilt-compiler = { module = "androidx.hilt:hilt-compiler", version.ref = "hilt" }
+androidx-hilt-navigation = { module = "androidx.hilt:hilt-navigation-compose", version.ref = "hilt" }
 dagger-hilt-android = { module = "com.google.dagger:hilt-android", version.ref = "dagger" }
 dagger-hilt-compiler = { module = "com.google.dagger:hilt-android-compiler", version.ref = "dagger" }
 
