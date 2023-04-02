@@ -40,7 +40,7 @@
             <!-- The tile preview shown when configuring tiles on your phone -->
             <meta-data
                 android:name="androidx.wear.tiles.PREVIEW"
-                android:resource="@android:drawable/ic_dialog_map" />
+                android:resource="@mipmap/ic_launcher_round" />
         </service>
 
         <!-- Required for WorkManager & HiltWorker -->
