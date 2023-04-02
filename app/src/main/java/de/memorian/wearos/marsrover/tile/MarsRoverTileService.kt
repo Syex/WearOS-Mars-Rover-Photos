@@ -90,7 +90,7 @@ class MarsRoverTileService : SuspendingTileService() {
                 refreshInterval.toLong(),
                 TimeUnit.HOURS
             )
-                .setInitialDelay(refreshInterval.toLong(), TimeUnit.HOURS)
+//                .setInitialDelay(refreshInterval.toLong(), TimeUnit.HOURS)
                 .setConstraints(
                     Constraints.Builder().setRequiredNetworkType(NetworkType.CONNECTED).build()
                 ).build()

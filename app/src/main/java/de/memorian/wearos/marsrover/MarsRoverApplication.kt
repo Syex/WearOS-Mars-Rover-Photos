@@ -6,7 +6,6 @@ import androidx.work.Configuration
 import dagger.hilt.android.HiltAndroidApp
 import de.memorian.wearos.marsrover.app.data.persistence.SettingsStore
 import de.memorian.wearos.marsrover.tile.MarsRoverTileService
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.MainScope
 import kotlinx.coroutines.launch
 import timber.log.Timber
@@ -31,7 +30,7 @@ class MarsRoverApplication : Application(), Configuration.Provider {
     }
 
     private fun schedulePeriodicImageRefresh() {
-        coroutineScope.launch(Dispatchers.Default) {
+        coroutineScope.launch {
             val refreshInterval = settingsStore.getRefreshInterval()
             MarsRoverTileService.schedulePeriodicImageRefresh(
                 this@MarsRoverApplication,
