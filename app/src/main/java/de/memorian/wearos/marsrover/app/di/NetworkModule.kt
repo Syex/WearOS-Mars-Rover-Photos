@@ -44,7 +44,7 @@ class NetworkModule {
                         Timber.tag("Ktor").d(message)
                     }
                 }
-                level = LogLevel.ALL
+                level = LogLevel.HEADERS
             }
         }
     }

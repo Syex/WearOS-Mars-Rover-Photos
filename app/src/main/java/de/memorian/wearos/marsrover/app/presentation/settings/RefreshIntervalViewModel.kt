@@ -3,6 +3,8 @@ package de.memorian.wearos.marsrover.app.presentation.settings
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
+import de.memorian.wearos.marsrover.app.data.persistence.SettingsStore
+import de.memorian.wearos.marsrover.app.presentation.settings.RefreshIntervalScreenState.ShowPicker
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -11,11 +13,12 @@ import javax.inject.Inject
 
 @HiltViewModel
 class RefreshIntervalViewModel(
+    private val settingsStore: SettingsStore,
     coroutineScope: CoroutineScope?,
 ) : ViewModel() {
 
     @Inject
-    constructor() : this(null)
+    constructor(settingsStore: SettingsStore) : this(settingsStore, null)
 
     private val _screenStateFlow =
         MutableStateFlow<RefreshIntervalScreenState>(RefreshIntervalScreenState.Loading)
@@ -23,12 +26,13 @@ class RefreshIntervalViewModel(
 
     private val coroutineScope = coroutineScope ?: viewModelScope
 
-    init {
-        _screenStateFlow.tryEmit(RefreshIntervalScreenState.ShowPicker(8))
+    fun loadRefreshInterval() = coroutineScope.launch {
+        val refreshInterval = settingsStore.getRefreshInterval()
+        _screenStateFlow.emit(ShowPicker(refreshInterval))
     }
 
     fun onNewIntervalConfirmed(newInterval: Int) = coroutineScope.launch {
-
+        settingsStore.storeNewRefreshInterval(newInterval)
     }
 }
 

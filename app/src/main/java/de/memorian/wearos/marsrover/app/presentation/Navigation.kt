@@ -26,7 +26,8 @@ fun NavHost() {
         }
 
         composable(Route.PICK_REFRESH_INTERVAL.routeName) {
-            val viewModel = hiltViewModel<RefreshIntervalViewModel>()
+            val viewModel =
+                hiltViewModel<RefreshIntervalViewModel>().apply { loadRefreshInterval() }
             RefreshIntervalPicker(
                 state = viewModel.screenStateFlow.collectAsState(),
                 onNewIntervalConfirmed = {

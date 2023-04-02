@@ -2,11 +2,14 @@ package de.memorian.wearos.marsrover
 
 import android.app.Application
 import androidx.hilt.work.HiltWorkerFactory
-import androidx.work.*
+import androidx.work.Configuration
 import dagger.hilt.android.HiltAndroidApp
-import de.memorian.wearos.marsrover.app.data.worker.RefreshImageWorker
+import de.memorian.wearos.marsrover.app.data.persistence.SettingsStore
+import de.memorian.wearos.marsrover.tile.MarsRoverTileService
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.MainScope
+import kotlinx.coroutines.launch
 import timber.log.Timber
-import java.util.concurrent.TimeUnit
 import javax.inject.Inject
 
 @HiltAndroidApp
@@ -14,6 +17,11 @@ class MarsRoverApplication : Application(), Configuration.Provider {
 
     @Inject
     lateinit var workerFactory: HiltWorkerFactory
+
+    @Inject
+    lateinit var settingsStore: SettingsStore
+
+    private val coroutineScope = MainScope()
 
     override fun onCreate() {
         super.onCreate()
@@ -23,12 +31,13 @@ class MarsRoverApplication : Application(), Configuration.Provider {
     }
 
     private fun schedulePeriodicImageRefresh() {
-        val refreshRequest = PeriodicWorkRequestBuilder<RefreshImageWorker>(1, TimeUnit.DAYS)
-            .setInitialDelay(1, TimeUnit.DAYS)
-            .setConstraints(
-                Constraints.Builder().setRequiredNetworkType(NetworkType.CONNECTED).build()
-            ).build()
-        WorkManager.getInstance(this).enqueue(refreshRequest)
+        coroutineScope.launch(Dispatchers.Default) {
+            val refreshInterval = settingsStore.getRefreshInterval()
+            MarsRoverTileService.schedulePeriodicImageRefresh(
+                this@MarsRoverApplication,
+                refreshInterval
+            )
+        }
     }
 
     override fun getWorkManagerConfiguration(): Configuration = Configuration.Builder()
