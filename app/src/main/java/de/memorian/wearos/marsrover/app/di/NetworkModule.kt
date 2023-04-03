@@ -51,7 +51,7 @@ class NetworkModule {
 
     @Provides
     @ApiKey
-    fun provideApiKey(): String = if (BuildConfig.DEBUG) "DEMO_KEY" else ""
+    fun provideApiKey(): String = if (BuildConfig.DEBUG) "DEMO_KEY" else BuildConfig.API_KEY
 }
 
 @Qualifier

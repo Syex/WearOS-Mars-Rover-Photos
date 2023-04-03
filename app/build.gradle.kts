@@ -18,6 +18,9 @@ android {
         targetSdk = 33
         versionCode = 1
         versionName = "1.0"
+
+        val apiKey = System.getenv("API_KEY") ?: ""
+        buildConfigField("String", "API_KEY", "\"$apiKey\"")
     }
 
     buildTypes {
