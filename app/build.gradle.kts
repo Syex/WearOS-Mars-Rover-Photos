@@ -80,6 +80,7 @@ dependencies {
     implementation(libs.ktor.client.content.negotiation)
     implementation(libs.ktor.json)
     implementation(libs.kotlinx.datetime)
+    implementation(libs.kotlinx.serialization)
 
     implementation(libs.androidx.hilt.work)
     implementation(libs.androidx.hilt.navigation)
