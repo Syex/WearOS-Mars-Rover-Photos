@@ -89,11 +89,9 @@ class MarsRoverTileService : SuspendingTileService() {
             val refreshRequest = PeriodicWorkRequestBuilder<RefreshImageWorker>(
                 refreshInterval.toLong(),
                 TimeUnit.HOURS
-            )
-//                .setInitialDelay(refreshInterval.toLong(), TimeUnit.HOURS)
-                .setConstraints(
-                    Constraints.Builder().setRequiredNetworkType(NetworkType.CONNECTED).build()
-                ).build()
+            ).setConstraints(
+                Constraints.Builder().setRequiredNetworkType(NetworkType.CONNECTED).build()
+            ).build()
 
             WorkManager.getInstance(context).enqueueUniquePeriodicWork(
                 WORK_NAME,
