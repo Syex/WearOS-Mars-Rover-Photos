@@ -6,7 +6,13 @@ a [WearOS tile](https://developer.android.com/training/wearables/tiles).
 
 This project uses the [NASA API](https://api.nasa.gov/index.html#browseAPI) _Mars Rover Photos_.
 
-![](demo.gif)
+Tile:
+
+<img src = "images/tile_3.png" width="30%"/> <img src = "images/tile_2.png" width="30%"/> <img src = "images/tile_1.png" width="30%"/>
+
+App:
+
+<img src = "images/app_1.png" width="30%"/> <img src = "images/app_2.png" width="30%"/>
 
 ## Structure
 
