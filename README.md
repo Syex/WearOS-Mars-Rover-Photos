@@ -1,5 +1,7 @@
 # WearOS app to view Mars Rover photos
 
+[<img src = "images/google-play-badge.png" width="30%"/>](https://play.google.com/store/apps/details?id=de.memorian.wearos.marsrover)
+
 This is a WearOS app that displays random photos from the three Mars rovers *Curiosity*,
 *Opportunity*, and *Spirit* taken on the Mars in
 a [WearOS tile](https://developer.android.com/training/wearables/tiles).
