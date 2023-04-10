@@ -10,11 +10,11 @@ This project uses the [NASA API](https://api.nasa.gov/index.html#browseAPI) _Mar
 
 Tile:
 
-<img src = "images/tile_3.png" width="30%"/> <img src = "images/tile_2.png" width="30%"/> <img src = "images/tile_1.png" width="30%"/>
+<img src = "images/tile_3.jpg" width="30%"/> <img src = "images/tile_2.jpg" width="30%"/> <img src = "images/tile_1.jpg" width="30%"/>
 
 App:
 
-<img src = "images/app_1.png" width="30%"/> <img src = "images/app_2.png" width="30%"/>
+<img src = "images/app_1.jpg" width="30%"/> <img src = "images/app_2.jpg" width="30%"/>
 
 ## Structure
 
