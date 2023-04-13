@@ -18,6 +18,7 @@ import de.memorian.wearos.marsrover.app.presentation.theme.MarsRoverTheme
 @Composable
 fun SettingsScreen(
     onPickRefreshIntervalClicked: () -> Unit,
+    onViewCurrentImageClicked: () -> Unit,
 ) {
     ScalingLazyColumn(modifier = Modifier.fillMaxWidth()) {
         item {
@@ -40,6 +41,13 @@ fun SettingsScreen(
                 }
             )
         }
+
+        item {
+            Chip(
+                label = { Text(text = stringResource(id = R.string.title_view_current_image)) },
+                onClick = { onViewCurrentImageClicked() },
+            )
+        }
     }
 }
 
@@ -48,7 +56,8 @@ fun SettingsScreen(
 fun SettingsScreenPreview() {
     MarsRoverTheme {
         SettingsScreen(
-            onPickRefreshIntervalClicked = {}
+            onPickRefreshIntervalClicked = {},
+            onViewCurrentImageClicked = {}
         )
     }
 }

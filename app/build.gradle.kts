@@ -16,7 +16,7 @@ android {
         applicationId = "de.memorian.wearos.marsrover"
         minSdk = 26
         targetSdk = 33
-        versionCode = 2
+        versionCode = 3
         versionName = "1.0"
 
         val apiKey = System.getenv("API_KEY") ?: ""

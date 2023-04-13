@@ -3,5 +3,6 @@
     <string name="tile_service_label">Mars Rover photos</string>
     <string name="tile_service_description">todo</string>
     <string name="title_refresh_interval">Refresh interval</string>
+    <string name="title_view_current_image">View current image</string>
     <string name="refresh_interval_label">Hours</string>
 </resources>
